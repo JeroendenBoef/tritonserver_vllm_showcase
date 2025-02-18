@@ -1,0 +1,15 @@
+FROM nvcr.io/nvidia/tritonserver:24.09-vllm-python-py3
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN pip install --upgrade pip && \
+    pip install transformers==4.44.2 && \
+    pip install requests
+
+WORKDIR /opt/app
+
+COPY src/tritonserver/entrypoint.sh /opt/app/entrypoint.sh
+COPY src/tritonserver/model_repository /opt/app/model_repository
+RUN chmod +x /opt/app/entrypoint.sh
+
+CMD ["tritonserver", "--model-repository=/opt/app/model_repository", "--http-port 8000", "--grpc-port 8001", "--metrics-port 8002", "--pinned-memory-pool-byte-size=107374182", "--cuda-memory-pool-byte-size=0:8589934592", "--cuda-memory-pool-byte-size=1:8589934592", "--buffer-manager-thread-count=2", "--metrics-interval-ms=1000", "--cache-config local,size=1000", "--pinned-memory-pool-byte-size=0"]
