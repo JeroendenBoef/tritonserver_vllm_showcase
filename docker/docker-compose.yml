@@ -1,0 +1,40 @@
+services:
+  tritonserver_vllm:
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile
+    env_file:
+      - ../.env
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+          memory: 180g
+    cap_add:
+      - SYS_PTRACE
+    ports:
+      - "8000:8000" # HTTP
+      - "8001:8001" # gRPC
+      - "8002:8002" # Metrics
+    shm_size: 64gb
+    volumes:
+      - ../src/tritonserver/model_repository:/opt/app/model_repository
+      - ../models:/opt/app/models
+      - type: bind
+        source: ../.env
+        target: /opt/app/.env
+    entrypoint: ["/opt/app/entrypoint.sh"]
+    command: tritonserver --model-repository=/opt/app/model_repository
+                   --http-port 8000
+                   --grpc-port 8001
+                   --metrics-port 8002
+                   --pinned-memory-pool-byte-size=107374182
+                   --cuda-memory-pool-byte-size=0:8589934592
+                   --cuda-memory-pool-byte-size=1:8589934592
+                   --buffer-manager-thread-count=2
+                   --metrics-interval-ms=1000
+                   --cache-config local,size=1000
+                   --pinned-memory-pool-byte-size=0
