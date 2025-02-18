@@ -1,0 +1,9 @@
+{
+    "model":"/opt/app/models/llama3-8b-instruct",
+    "gpu_memory_utilization": 0.6,
+    "tensor_parallel_size": 2,
+    "trust_remote_code": true,
+    "disable_log_requests": true,
+    "enforce_eager": true,
+    "max_model_len": 2048
+}
