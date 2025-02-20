@@ -4,7 +4,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN pip install --upgrade pip && \
     pip install transformers==4.44.2 && \
-    pip install requests
+    pip install requests better-profanity profanity-check
 
 WORKDIR /opt/app
 
