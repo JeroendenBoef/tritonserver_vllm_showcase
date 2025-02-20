@@ -1,0 +1,14 @@
+FROM python:3.10-slim
+
+WORKDIR /opt/app
+
+RUN pip install --upgrade pip \
+    && pip install pytest pytest-cov better-profanity
+
+COPY tests/unit /opt/app/tests/unit
+COPY src/tritonserver/model_repository/llama_bls_ensemble/1/preprocess.py /opt/app/preprocess.py
+COPY src/tritonserver/model_repository/llama_postprocess/1/model_gaurdrails.py /opt/app/model_gaurdrails.py
+
+ENV PYTHONPATH="/opt/app"
+
+CMD ["pytest", "--cov=.", "--cov-report=xml:tests/cov-report.xml"]
