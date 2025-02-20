@@ -1,0 +1,13 @@
+FROM python:3.10-slim
+
+WORKDIR /opt/app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install --upgrade pip && \
+    pip install pytest requests
+
+COPY tests/integration_tests.py /opt/app/integration_tests.py
+
+CMD ["pytest", "integration_tests.py"]
