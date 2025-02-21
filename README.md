@@ -112,7 +112,7 @@ This does introduce some scheduling inefficiencies (requests block while making 
 
 ### Requirements
 - **NVIDIA GPU** with ~22–24 GB of memory available (e.g., an RTX 4090, this stack was tested with CUDA 12.6).
-- A **Hugging Face** account with **access** to “Meta-Llama-3-8B-Instruct,” and you **must** place your HF token in the `.env` file.
+- A **Hugging Face** account with **access** to “Meta-Llama-3-8B-Instruct,” and you **must**  create a .env file in the root of this repository and add the line `HUGGINGFACE_HUB_TOKEN={your_hf_token}`, where `your_hf_token` is replaced with your HF hub token.
 
 ### Building & Running
 
