@@ -5,7 +5,7 @@ import logging
 import numpy as np
 import c_python_backend_utils as c_utils
 import triton_python_backend_utils as pb_utils
-from profanity_checker import check_for_profanity
+from preprocess import check_for_profanity_or_phrases
 
 logging.basicConfig(
     level=logging.ERROR,  # Set the log level (DEBUG, INFO, etc.)
@@ -30,7 +30,7 @@ class TritonPythonModel:
             max_tokens = pb_utils.get_input_tensor_by_name(request, "max_tokens").as_numpy()[0]
             stream = bool(pb_utils.get_input_tensor_by_name(request, "stream").as_numpy()[0])
 
-            profanity, processed_text = check_for_profanity(input_text)
+            profanity, processed_text = check_for_profanity_or_phrases(input_text)
             t1 = time.time()
             self.logger.log_info(f"Time elapsed for input validation: {np.around(t1 - t0, 3)} seconds")
 

@@ -43,3 +43,15 @@ services:
       interval: 15s
       timeout: 5s
       retries: 20
+
+  integration_tests:
+    build:
+      context: ..
+      dockerfile: ./docker/Dockerfile.integration_tests
+    depends_on:
+      tritonserver_vllm:
+        condition: service_healthy
+    environment:
+      TRITON_HOST: tritonserver_vllm
+    command: ["pytest", "integration_tests.py"]
+    network_mode: "host"
