@@ -88,13 +88,13 @@ Specifically for this repo:
 3. `llama_postprocess/`:
     - `config.pbtxt`: Instructs Triton about inference backend, tensor names, input/output shapes, datatypes, instance scaling and accelerator parameters (GPU/CPU specific).
     - `1/model.py`: Tensor processing logic
-    - `1/model_gaurdrails.py`: Output censorship to limit what the LLM can produce.
+    - `1/model_guardrails.py`: Output censorship to limit what the LLM can produce.
 
 ### Guardrails (Input & Output)
 
 - **Preprocessing** uses `better_profanity` and a simple banned-word list to *block or sanitize user queries*.  
 - **Postprocessing** uses a similar approach to censor the model’s final text.  
-- For advanced or domain-specific safety checks, the Tritonserver ecosystem could be expanded with additional classification models, which can be integrated similarly via BLS. Alternatively, more advanced solutions are provided by managed services such as [gaurdrails](https://www.guardrailsai.com/).
+- For advanced or domain-specific safety checks, the Tritonserver ecosystem could be expanded with additional classification models, which can be integrated similarly via BLS. Alternatively, more advanced solutions are provided by managed services such as [guardrails](https://www.guardrailsai.com/).
 
 ### Why Manual BLS Instead of an Ensemble?
 
@@ -137,7 +137,7 @@ docker build -f docker/Dockerfile.unittests -t vllm_tritonserver_unittests .
 docker run -it vllm_tritonserver_unittests
 ```
 
-These tests are meant to verify smaller Python logic like guardrail functions, such as `preprocess.py` and `model_gaurdrails.py`.
+These tests are meant to verify smaller Python logic like guardrail functions, such as `preprocess.py` and `model_guardrails.py`.
 
 ### 3.2 Integration Tests
 

@@ -4,7 +4,7 @@ import logging
 import numpy as np
 import c_python_backend_utils as c_utils
 import triton_python_backend_utils as pb_utils
-from model_gaurdrails import censor_profanity
+from model_guardrails import censor_profanity
 
 logging.basicConfig(
     level=logging.ERROR,  # Set the log level (DEBUG, INFO, etc.)

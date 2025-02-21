@@ -1,5 +1,5 @@
 import pytest
-from model_gaurdrails import censor_profanity
+from model_guardrails import censor_profanity
 
 
 def test_no_profanity():
