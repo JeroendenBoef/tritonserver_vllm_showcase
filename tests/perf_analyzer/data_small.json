@@ -1,0 +1,11 @@
+{
+    "data": [
+      {
+        "text_input": ["How do you fry an egg?"],
+        "temperature": [0],
+        "max_tokens": [50],
+        "stream": [false]
+      }
+    ]
+  }
+  
