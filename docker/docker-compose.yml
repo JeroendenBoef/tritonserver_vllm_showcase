@@ -2,7 +2,7 @@ services:
   tritonserver_vllm:
     build:
       context: ..
-      dockerfile: ./docker/Dockerfile
+      dockerfile: ./docker/Dockerfile.server
     env_file:
       - ../.env
     deploy:
@@ -38,3 +38,8 @@ services:
                    --metrics-interval-ms=1000
                    --cache-config local,size=1000
                    --pinned-memory-pool-byte-size=0
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/v2/health/ready"]
+      interval: 15s
+      timeout: 5s
+      retries: 20
