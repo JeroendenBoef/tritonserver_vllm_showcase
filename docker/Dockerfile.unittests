@@ -7,7 +7,7 @@ RUN pip install --upgrade pip \
 
 COPY tests/unit /opt/app/tests/unit
 COPY src/tritonserver/model_repository/llama_bls_ensemble/1/preprocess.py /opt/app/preprocess.py
-COPY src/tritonserver/model_repository/llama_postprocess/1/model_gaurdrails.py /opt/app/model_gaurdrails.py
+COPY src/tritonserver/model_repository/llama_postprocess/1/model_guardrails.py /opt/app/model_guardrails.py
 
 ENV PYTHONPATH="/opt/app"
 
